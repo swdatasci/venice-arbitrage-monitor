@@ -1,6 +1,8 @@
 monitoring:
   # How often to check prices (seconds)
-  check_interval_seconds: 300
+  # 600s = 10 min = 144 checks/day = 288 API calls/day (within CMC free tier 333/day)
+  # 300s = 5 min = 288 checks/day = 576 API calls/day (EXCEEDS free tier)
+  check_interval_seconds: 600
 
   # Price sources for VVV token
   vvv_sources:

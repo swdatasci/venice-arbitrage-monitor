@@ -1,0 +1,23 @@
+[Unit]
+Description=Venice AI Arbitrage Monitor
+After=network.target
+
+[Service]
+Type=simple
+User=rford
+WorkingDirectory=/home/rford/venice-arbitrage-monitor
+ExecStart=/usr/bin/uv run python -m venice_monitor.main
+Restart=always
+RestartSec=30
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=venice-monitor
+
+# Environment
+Environment="PYTHONUNBUFFERED=1"
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target

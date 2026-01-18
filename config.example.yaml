@@ -1,0 +1,89 @@
+monitoring:
+  # How often to check prices (seconds)
+  check_interval_seconds: 300
+
+  # Price sources for VVV token
+  vvv_sources:
+    - coinmarketcap
+    - coingecko
+    - aerodrome
+
+  # Price sources for DIEM token
+  diem_sources:
+    - aerodrome
+    - coinmarketcap
+
+  # Alert thresholds for DIEM arbitrage
+  diem_arbitrage:
+    # Minimum profit percentage to trigger alert
+    min_profit_percent: 5.0
+
+    # Alert when DIEM trades below this discount from intrinsic value ($365)
+    intrinsic_value_discount_percent: 10.0
+
+    # DCF discount rate for intrinsic value calculation
+    dcf_discount_rate: 0.25
+
+  # VVV buy signal configuration
+  vvv_buy_signals:
+    # RSI below this = oversold signal
+    rsi_oversold: 30
+
+    # Price drop percentage from recent high to trigger alert
+    price_drop_percent: 15.0
+
+    # Volume spike multiplier (vs 7-day average)
+    volume_spike_multiplier: 2.0
+
+    # Number of days for moving averages
+    ma_short_days: 7
+    ma_long_days: 30
+
+notifications:
+  # Caelum MCP notification service
+  caelum:
+    enabled: true
+    host: 10.32.3.27
+    port: 8090
+    api_key: ""  # Optional if using MCP directly
+
+  # Email notifications
+  email:
+    enabled: false
+    smtp_host: smtp.gmail.com
+    smtp_port: 587
+    smtp_user: ""
+    smtp_password: ""
+    from_address: ""
+    to_addresses:
+      - your-email@example.com
+
+  # Discord webhook
+  discord:
+    enabled: false
+    webhook_url: ""
+
+# Web3 configuration for Base chain
+web3:
+  base_rpc_url: "https://mainnet.base.org"
+
+  # Aerodrome DEX contract addresses on Base
+  aerodrome_router: "0xBE6D8f0d05cC4be24d5167a3eF062215bE6D18a5"
+  vvv_token_address: "0x" # Add actual VVV token address on Base
+  diem_token_address: "0x" # Add actual DIEM token address on Base
+
+# API keys
+api_keys:
+  coinmarketcap: ""  # Get from https://pro.coinmarketcap.com/
+  coingecko: ""      # Pro API key (optional)
+
+# Database for price history
+database:
+  path: "data/price_history.db"
+
+# Logging configuration
+logging:
+  level: INFO
+  file: "logs/venice_monitor.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
